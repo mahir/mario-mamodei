@@ -60,3 +60,4 @@ h1 { font-size: 1.6rem; font-weight: 500; line-height: 1.25; margin: 0 0 0.3rem;
 footer { margin-top: 5rem; color: var(--quiet); font-size: 0.8rem; }
 .mast + .label { margin-bottom: 2rem; }
 .bio { max-width: 34rem; margin: 0 0 2.5rem; line-height: 1.6; }
+.bio + .label { margin-bottom: 2rem; }
