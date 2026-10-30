@@ -111,6 +111,7 @@ Each of these is a different way for a work to exist. Rotate through them.
 - Sophie Calle, Suite vénitienne, 1980; Take Care of Yourself, 2007. [known]
 - Cildo Meireles, Insertions into Ideological Circuits, 1970. [known]
 - Pauline Oliveros, Sonic Meditations, 1971. [known]
+- Augustine, Confessions, Book XI: on time, "If no one asks me, I know; if I want to explain it to someone who asks, I do not know." (wording varies by translation) [known]
 - Ian Wilson, spoken "oral communication" works, late 1960s. [verify]
 
 ## Works by Mario Mamodei

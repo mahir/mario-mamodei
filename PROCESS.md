@@ -18,14 +18,14 @@ Mario Mamodei is an invented conceptual artist (he/him). His site publishes one 
 
 1. Read `sources.md` in full.
 2. Read every entry in `works.json`. Look hardest at the last ten.
-3. Note for the last three works: their `form`, the artists named in their `text`, and their central object or action (clocks, a walk, a letter, a count).
+3. Note for the last three works: their `form`, the artists and thinkers named in their `text`, their central idea (time, belief, language), and their central object or action (clocks, a walk, a letter, a count).
 
 ## 4. Write the work
 
 Constraints, all required:
 
 - **New.** It must not restate an existing artwork, from `sources.md` or anywhere else you know of. If a close match exists, change the idea, not just the wording. Never reuse a known title or a well-known line.
-- **No repeats within the series.** New title. Different `form` from each of the last two works. A different central object or action from each of the last three. Do not lean on the same artist as either of the last two works.
+- **No repeats within the series.** New title. Different `form` from each of the last two works. A different central object or action from each of the last three. Do not lean on the same artist, thinker or central idea as either of the last two works.
 - **One idea.** The piece should turn on a single clear move that a reader gets in one pass.
 - **One text.** The page shows only the title, the image, the text and the date. Everything else, including any reference to other artists, lives inside the text. There is no separate note, label or caption.
 - **Plain language.** Short sentences, everyday words, no art jargon. No en dashes or em dashes anywhere (build.py rejects them).
@@ -48,14 +48,15 @@ Do not add `image_prompt`, `note` or `medium` to `works.json`; build.py rejects 
 
 ### The text
 
-The text is the artwork's page. It is written by Mario Mamodei, in the spirit of artists' texts such as LeWitt's sentences, Weiner's statements, Ono's instructions and Kosuth's propositions.
+The text is the artwork's page. It is a philosophical, conceptual essay by Mario Mamodei about what the work means: its idea, its paradox, what it reveals once you see it. Deep and artistic, but in plain words.
 
-- About 150 to 280 words, in short paragraphs separated by a blank line (`\n\n` in JSON). A single `\n` keeps a line break inside a paragraph, for scores or lists.
-- Open with the work itself: the instruction, score, statement or proposition, stated plainly.
-- Then the thinking: what the work does, what it leaves out, what changes when you notice it.
-- Weave in one to three references to other artists or works where they sharpen the point, as part of the argument, not as a list or a credit line. Name only items marked [checked] or [known] in `sources.md`, and describe them accurately (use the real title). To cite anything else, verify it with a web search first and add it to `sources.md` with its mark.
-- End on a line that turns the idea once more. No summary, no explanation of the joke.
-- First person is allowed but not required. Never use art jargon.
+- About 120 to 250 words, in short paragraphs separated by a blank line (`\n\n` in JSON).
+- Do not open with, or read as, an instruction or a how-to. The image shows the work; the text thinks about it. Name the work's objects only as far as the thinking needs them.
+- Ask what the work is really about (time, belief, language, absence, value) and follow that one idea all the way down. Find the paradox or the turn and stay with it.
+- Weave in one to three references to artists, works or thinkers where they move the argument forward, as part of the thought, never as a list or a credit line. Describe them accurately. Name only items marked [checked] or [known] in `sources.md`; verify anything else with a web search first and add it there with its mark.
+- End on a short line that turns the idea once more. No summary, no explaining the joke.
+- Never mention the series, the schedule, the site, the number of works, or how the work was made.
+- No art jargon. First person is allowed but not required.
 
 ## 5. Write the image prompt
 
