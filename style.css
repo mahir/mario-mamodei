@@ -1,21 +1,13 @@
 :root {
-  --paper: #fafaf8;
-  --ink: #141414;
-  --quiet: #7a7872;
-  --rule: #e4e2dc;
-  --plate: #efeeea;
+  color-scheme: light;
+  --paper: #fdfdfb;
+  --ink: #222221;
+  --quiet: #8b8a85;
+  --rule: #e9e8e4;
+  --plate: #f3f2ef;
   --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
   --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   --gutter: clamp(1.25rem, 5vw, 2.5rem);
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #111111;
-    --ink: #ededea;
-    --quiet: #8c8a84;
-    --rule: #272725;
-    --plate: #1b1b1a;
-  }
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }

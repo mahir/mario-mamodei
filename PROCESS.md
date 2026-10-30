@@ -42,9 +42,10 @@ Pick a `form` from the list in `sources.md`, then write these fields:
 | `date` | The slot from step 2. |
 | `form` | One of the forms in `sources.md`, or a close variant. Not shown on the page; used to avoid repeats. |
 | `text` | The conceptual text. See below. |
+| `image` | `<slug>.svg`, the image you draw in section 5. |
 | `image_alt` | One sentence describing the image for screen readers. |
 
-Do not add `image_prompt`, `note` or `medium` to `works.json`; build.py rejects them. The image prompt goes only in the message to the user (section 8).
+Do not add `image_prompt`, `note` or `medium` to `works.json`; build.py rejects them.
 
 ### The text
 
@@ -58,26 +59,28 @@ The text is the artwork's page. It is a philosophical, conceptual essay by Mario
 - Never mention the series, the schedule, the site, the number of works, or how the work was made.
 - No art jargon. First person is allowed but not required.
 
-## 5. Write the image prompt
+## 5. Make the image
 
-The user pastes this into an image generation service, then adds the result to the repository. Make it complete enough to work with no other context. It is never committed and never shown on the site; it goes only in the message in section 8.
+Each run draws the work's image itself, in code, as an SVG file at `works/<slug>.svg`. Nobody makes images by hand. The image is part of the work, not decoration: it shows the idea in the way conceptual artists documented theirs (a typeset statement, a diagram, an index card, a system of lines or marks, a chart, a map, a count).
 
-- Describe one photographable scene: a documentation photograph of the work installed or carried out, an object, a typed card, words on a wall, a page.
-- Be literal and concrete: what is in frame, where, materials, colours, light, camera angle, framing.
-- House look, unless the work calls for something else: documentary photograph, white or neutral setting, soft even daylight, muted neutral colour, slight film grain, in the manner of 1960s and 1970s conceptual art documentation.
-- If text appears in the image, give the exact words in capitals and keep it to a few words. Say where each word sits.
-- Any clock, number or count must be stated exactly (for example "both clocks show exactly 9:00").
-- End with: "Square format, 1:1." and a list of exclusions (no people unless needed, no logos, no brand names, no other text).
-- Do not name real artists in the prompt.
+Design rules:
+
+- `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200">`, square. Write it by hand or with a short Python script using only the standard library.
+- Gallery white: background `#fdfdfb` filling the whole square (a `<rect>`), marks and type in `#222221`, secondary marks in `#8b8a85`, hairlines in `#d9d8d3`. At most one accent colour, only if the idea needs it.
+- Generous empty space. The subject should take up well under half the square.
+- Type: `font-family="Helvetica Neue, Helvetica, Arial, sans-serif"` for words, `font-family="Menlo, Courier New, monospace"` for numbers or typewriter text. Few words, set large or set very small; never a paragraph. No dashes.
+- Lines: `stroke-width` 1.5 to 4, no shadows, no gradients, no textures, no photographic effects.
+- Make it specific to this work. Do not reuse a previous work's layout; vary between type, diagram, grid, card and mark.
+- Self-contained: no `<image>`, `<script>`, `<foreignObject>`, links, animation, or anything loaded from outside. build.py rejects these and any non-square file.
 
 ## 6. Build and check
 
-1. Append the new entry to `works.json` (keep the file a valid JSON array).
-2. Run `python3 build.py`. It must print `Built N work page(s) and index.html` with N one higher than before. If it errors, fix the entry and run it again.
+1. Append the new entry to `works.json` (keep the file a valid JSON array) and save the image at `works/<slug>.svg`.
+2. Run `python3 build.py`. It must print `Built N work page(s) and index.html` with N one higher than before. If it errors, fix the entry or the image and run it again.
 3. Check that `works/<slug>.html` exists and that `index.html` lists the new title first.
-4. Run `LC_ALL=C.UTF-8 grep -nP "[\x{2013}\x{2014}]" works.json index.html works/*.html` and confirm it prints nothing.
-5. Open `works/<slug>.html` and confirm it holds only the title, the image slot, the text and the date.
-6. `git status` should show only `works.json`, `index.html` and HTML files under `works/` as changed or new. If anything else changed, find out why before going on.
+4. Run `LC_ALL=C.UTF-8 grep -nP "[\x{2013}\x{2014}]" works.json index.html works/*.html works/*.svg` and confirm it prints nothing.
+5. Open `works/<slug>.html` and confirm it holds only the title, the image, the text and the date.
+6. `git status` should show only `works.json`, `index.html`, `works/<slug>.svg` and HTML files under `works/` as changed or new. If anything else changed, find out why before going on.
 
 ## 7. Publish
 
@@ -87,17 +90,12 @@ The user pastes this into an image generation service, then adds the result to t
 
 ## 8. Tell the user
 
-Post one short message with:
-
-- the number and title,
-- the link to the work's page on the site: `https://mahiryavuz.com/mario-mamodei/works/<slug>.html`,
-- the image prompt in its own code block,
-- one line asking the user to send the generated image in the chat, so it can be added as `works/<slug>.jpg`; the page shows it as soon as the file is there.
+Post one short message: the number and title, as a link to the work's page (`https://mahiryavuz.com/mario-mamodei/works/<slug>.html`). Nothing else.
 
 If the run stopped anywhere above, post one line saying where and why, and publish nothing.
 
 ## Image files
 
-- Images live at `works/<slug>.jpg`, next to the work's page. JPEG, square, about 1600 to 2000 pixels wide is plenty.
-- Until the file exists, the page shows a quiet "Image to come" panel. No rebuild is needed when the image is added.
-- A run never generates or commits images itself.
+- No. 001 keeps its photograph, `works/twelve-hours-apart.jpg`.
+- Every later work has `works/<slug>.svg`, drawn by the run that published it, named in the work's `image` field.
+- build.py stops if a work's image file is missing, so a work is never published without its image.
