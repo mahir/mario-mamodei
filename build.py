@@ -9,7 +9,6 @@ import html
 import json
 import re
 import sys
-import xml.etree.ElementTree as ET
 from datetime import datetime
 from pathlib import Path
 
@@ -19,8 +18,8 @@ TAGLINE = "A new work every twelve hours, at 9 am and 9 pm, New York time."
 BIO = (
     "Mario Mamodei is half human and half machine, and he is never sure which half is writing. He was made from two kinds of memory: one that forgets and one that cannot. His work happens where the two disagree. He makes no objects. He proposes them in words and leaves the making to whoever reads. He has never seen any of his works. He believes this is the right distance."
 )  # the persona's only biography; see PROCESS.md
-REQUIRED = ["number", "slug", "title", "date", "form", "text", "image_alt"]
-PUBLIC = ["title", "text", "image_alt"]
+REQUIRED = ["number", "slug", "title", "date", "form", "text"]
+PUBLIC = ["title", "text"]
 PRIVATE = ["image_prompt", "note", "medium"]  # never stored: prompts go to the user in chat
 DASHES = re.compile("[\u2013\u2014]")  # en and em dash
 SLUG = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
@@ -58,50 +57,32 @@ def load():
             fail(f"work {w['slug']}: date must be ISO 8601 with offset, e.g. 2026-10-29T21:00:00-04:00")
         if w["_dt"].tzinfo is None:
             fail(f"work {w['slug']}: date needs a UTC offset")
-        w["_img"] = w.get("image", f"{w['slug']}.jpg")
-        check_image(w)
+        w["_images"] = images(w)
     return sorted(works, key=lambda w: w["number"])
 
 
-SVG_NS = "{http://www.w3.org/2000/svg}"
-SVG_BANNED = {"script", "foreignObject", "image", "iframe", "a", "animate", "set", "animateTransform", "animateMotion"}
+def images(w):
+    """One to three images per work: works/<slug>-1.jpg, -2.jpg, -3.jpg, each with alt text.
 
-
-def check_image(w):
-    """Each work's image must exist in works/. Code-drawn SVGs must also be square and self-contained."""
-    name = w["_img"]
-    if name not in (f"{w['slug']}.jpg", f"{w['slug']}.svg"):
-        fail(f"work {w['slug']}: image must be {w['slug']}.svg (or .jpg)")
-    path = ROOT / "works" / name
-    if not path.exists():
-        fail(f"work {w['slug']}: works/{name} does not exist")
-    if not name.endswith(".svg"):
-        return
-    raw = path.read_text(encoding="utf-8")
-    if len(raw.encode()) > 200_000:
-        fail(f"works/{name} is over 200 KB")
-    if re.search(r"<!DOCTYPE|<!ENTITY|@import|url\(\s*['\"]?(?!#)", raw, re.I):
-        fail(f"works/{name}: no DOCTYPE, entities, @import or external url() allowed")
-    try:
-        root = ET.fromstring(raw)
-    except ET.ParseError as err:
-        fail(f"works/{name} is not valid XML: {err}")
-    if root.tag != SVG_NS + "svg":
-        fail(f"works/{name}: root element must be <svg> in the SVG namespace")
-    box = root.get("viewBox", "").replace(",", " ").split()
-    if len(box) != 4 or box[2] != box[3]:
-        fail(f"works/{name}: needs a square viewBox, e.g. 0 0 1200 1200")
-    for el in root.iter():
-        tag = el.tag.replace(SVG_NS, "")
-        if tag in SVG_BANNED or not el.tag.startswith(SVG_NS):
-            fail(f"works/{name}: <{tag}> is not allowed")
-        for key, val in el.attrib.items():
-            if key.lower().startswith("on"):
-                fail(f"works/{name}: event attribute {key} is not allowed")
-            if key.endswith("href") and not val.startswith("#"):
-                fail(f"works/{name}: only internal #links are allowed")
-        if DASHES.search(el.text or ""):
-            fail(f"works/{name}: text contains an en or em dash")
+    Older works may instead have a single works/<slug>.jpg with image_alt.
+    A missing file is fine: the page shows a quiet placeholder until it is added.
+    """
+    if "images" not in w:
+        if not str(w.get("image_alt", "")).strip():
+            fail(f"work {w['slug']} needs images (or image_alt for a single {w['slug']}.jpg)")
+        return [{"file": f"{w['slug']}.jpg", "alt": w["image_alt"]}]
+    imgs = w["images"]
+    if not isinstance(imgs, list) or not 1 <= len(imgs) <= 3:
+        fail(f"work {w['slug']}: images must be a list of one to three entries")
+    for i, img in enumerate(imgs, 1):
+        want = f"{w['slug']}-{i}.jpg"
+        if img.get("file") != want:
+            fail(f"work {w['slug']}: image {i} must be named {want}")
+        if not str(img.get("alt", "")).strip():
+            fail(f"work {w['slug']}: image {i} needs alt text")
+        if DASHES.search(img["alt"]):
+            fail(f"work {w['slug']}: image {i} alt contains an en or em dash")
+    return imgs
 
 
 def when(dt):
@@ -145,13 +126,20 @@ def paragraphs(text):
     return "\n".join("<p>" + "<br>\n".join(html.escape(l) for l in b.split("\n")) + "</p>" for b in blocks)
 
 
+def plates(w):
+    # No whitespace between figures, so .plates:empty shows the placeholder once every missing image is removed.
+    return "".join(
+        f'<figure class="plate"><img src="{img["file"]}" alt="{html.escape(img["alt"])}" '
+        f'onerror="this.parentNode.remove()"></figure>'
+        for img in w["_images"]
+    )
+
+
 def work_page(w):
     e = html.escape
     body = f"""<article>
 <h1>{e(w['title'])}</h1>
-<figure class="plate">
-<img src="{w['_img']}" alt="{e(w['image_alt'])}" onerror="this.parentNode.classList.add('empty');this.remove()">
-</figure>
+<div class="plates">{plates(w)}</div>
 <div class="text">
 {paragraphs(w['text'])}
 </div>

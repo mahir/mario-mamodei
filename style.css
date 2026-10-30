@@ -78,10 +78,11 @@ h1 {
   line-height: 1.15;
   letter-spacing: -0.025em;
 }
-.plate { margin: clamp(2rem, 6vw, 3.5rem) 0; background: var(--plate); }
+.plates { margin: clamp(2rem, 6vw, 3.5rem) 0; display: grid; gap: clamp(1rem, 3vw, 1.75rem); }
+.plate { margin: 0; background: var(--plate); }
 .plate img { display: block; width: 100%; height: auto; }
-.plate.empty { aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; }
-.plate.empty::after {
+.plates:empty { aspect-ratio: 1 / 1; background: var(--plate); display: flex; align-items: center; justify-content: center; }
+.plates:empty::after {
   content: "Image to come";
   color: var(--quiet);
   font-family: var(--mono);

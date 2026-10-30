@@ -7,7 +7,7 @@ A static site that publishes a new conceptual work by the invented artist Mario 
 - `works.json`: every work, one entry each. The single source of truth.
 - `build.py`: regenerates `index.html` and `works/<slug>.html` from `works.json`. Python 3, no packages.
 - `style.css`: the shared stylesheet.
-- `works/<slug>.svg`: each work's image, drawn in code by the run that published it (No. 001 is a photograph, `works/twelve-hours-apart.jpg`).
+- `works/<slug>-1.jpg` to `-3.jpg`: each work's images, generated from the run's prompts and added later (No. 001 has one, `works/twelve-hours-apart.jpg`). Until they arrive the page shows a quiet placeholder.
 - `sources.md`: the artists and texts the works draw on.
 - `PROCESS.md`: the procedure each scheduled run follows.
 - `.nojekyll`: tells GitHub Pages to serve the files as they are.
