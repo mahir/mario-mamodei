@@ -15,6 +15,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 ARTIST = "Mario Mamodei"
 TAGLINE = "A new work every twelve hours, at 9 am and 9 pm, New York time."
+BIO = (
+    "Mario Mamodei is half human and half machine, and he is never sure which half is writing. He was made from two kinds of memory: one that forgets and one that cannot. His work happens where the two disagree. He makes no objects. He proposes them in words and leaves the making to whoever reads. He has never seen any of his works. He believes this is the right distance."
+)  # the persona's only biography; see PROCESS.md
 REQUIRED = ["number", "slug", "title", "date", "form", "text", "image_alt"]
 PUBLIC = ["title", "text", "image_alt"]
 PRIVATE = ["image_prompt", "note", "medium"]  # never stored: prompts go to the user in chat
@@ -112,7 +115,8 @@ def index_page(works):
         f'<time datetime="{w["date"]}">{when(w["_dt"])}</time></span></li>'
         for w in reversed(works)
     )
-    body = f"""<p class="label">{e(TAGLINE)}</p>
+    body = f"""<p class="bio">{e(BIO)}</p>
+<p class="label">{e(TAGLINE)}</p>
 <ol class="index" reversed>
 {rows}
 </ol>
