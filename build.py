@@ -66,6 +66,11 @@ def when(dt):
     return f"{dt.day} {dt.strftime('%B %Y')}, {clock}"
 
 
+def when_short(dt):
+    hour = dt.hour % 12 or 12
+    return f"{dt.day:02d} {dt.strftime('%b %Y')}, {hour} {'am' if dt.hour < 12 else 'pm'}"
+
+
 def page(title, body, root):
     return f"""<!doctype html>
 <html lang="en">
@@ -74,6 +79,9 @@ def page(title, body, root):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)}</title>
 <meta name="description" content="{html.escape(TAGLINE)}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400&display=swap">
 <link rel="stylesheet" href="{root}style.css">
 </head>
 <body>
@@ -111,8 +119,8 @@ def index_page(works):
     e = html.escape
     rows = "\n".join(
         f'<li><span class="no">{w["number"]:03d}</span>'
-        f'<span><a href="works/{w["slug"]}.html">{e(w["title"])}</a>'
-        f'<time datetime="{w["date"]}">{when(w["_dt"])}</time></span></li>'
+        f'<a href="works/{w["slug"]}.html">{e(w["title"])}</a>'
+        f'<time datetime="{w["date"]}">{when_short(w["_dt"])}</time></li>'
         for w in reversed(works)
     )
     body = f"""<p class="bio">{e(BIO)}</p>
