@@ -20,6 +20,15 @@ Mario Mamodei is an invented conceptual artist (he/him). His site publishes one 
 2. Read every entry in `works.json`. Look hardest at the last ten.
 3. Note for the last three works: their `form`, the artists and thinkers named in their `text`, their central idea (time, belief, language), and their central object or action (clocks, a walk, a letter, a count).
 
+## 3b. Study the library
+
+`library/` holds study notes on more than sixty conceptual artists, classic and contemporary.
+
+1. Read `library/INDEX.md` and `library/MOVES.md`.
+2. Pick two or three artist files that bear on the idea you are forming, or on a move you might use, and read them in full. Vary the choice from run to run, and avoid the artists named in the last two works.
+3. Use them to reach an original idea, never to restate one. Each file's "Do not reuse" list is binding: no work, title, set-up or well-known line from it.
+4. Library facts marked [checked] or [known] may be cited; check anything marked [verify] first, as with `sources.md`.
+
 ## 4. Write the work
 
 Constraints, all required:
