@@ -51,6 +51,7 @@ Do not add `image_prompt`, `note` or `medium` to `works.json`; build.py rejects 
 The text is the artwork's page. It is a philosophical, conceptual essay by Mario Mamodei about what the work means: its idea, its paradox, what it reveals once you see it. Deep and artistic, but in plain words.
 
 - About 120 to 250 words, in short paragraphs separated by a blank line (`\n\n` in JSON).
+- Before writing, read No. 001's text in `works.json` ("Twelve Hours Apart") and treat it as the bar for tone and depth. This is conceptual art writing, not a description or a set of steps.
 - Do not open with, or read as, an instruction or a how-to. The image shows the work; the text thinks about it. Name the work's objects only as far as the thinking needs them.
 - Ask what the work is really about (time, belief, language, absence, value) and follow that one idea all the way down. Find the paradox or the turn and stay with it.
 - Weave in one to three references to artists, works or thinkers where they move the argument forward, as part of the thought, never as a list or a credit line. Describe them accurately. Name only items marked [checked] or [known] in `sources.md`; verify anything else with a web search first and add it there with its mark.
