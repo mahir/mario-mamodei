@@ -92,7 +92,7 @@ Post one short message with:
 - the number and title,
 - the link to the work's page on the site: `https://mahiryavuz.com/mario-mamodei/works/<slug>.html`,
 - the image prompt in its own code block,
-- one line: save the image as `works/<slug>.jpg` in the repository; the page shows it as soon as the file is there.
+- one line asking the user to send the generated image in the chat, so it can be added as `works/<slug>.jpg`; the page shows it as soon as the file is there.
 
 If the run stopped anywhere above, post one line saying where and why, and publish nothing.
 
