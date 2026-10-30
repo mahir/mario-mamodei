@@ -4,7 +4,7 @@ Mario Mamodei is an invented conceptual artist (he/him). His site publishes one 
 
 ## 1. Get the repository
 
-1. Clone or pull the site's repository (named in the routine's prompt) and work on its default branch.
+1. Clone or pull the site's repository, `mahir/mario-mamodei`, and work on its default branch, `main`.
 2. Confirm these exist at the root: `works.json`, `build.py`, `style.css`, `sources.md`, `PROCESS.md`. If any is missing, stop and report it.
 
 ## 2. Work out the slot
@@ -77,7 +77,7 @@ The user pastes this into an image generation service, then adds the result to t
 Post one short message with:
 
 - the number and title,
-- the link to the work's page on the site,
+- the link to the work's page on the site: `https://mahiryavuz.com/mario-mamodei/works/<slug>.html`,
 - the image prompt in its own code block,
 - one line: save the image as `works/<slug>.jpg` in the repository; the page shows it as soon as the file is there.
 
