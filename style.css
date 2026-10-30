@@ -49,19 +49,13 @@ a:hover { border-bottom-color: var(--ink); }
 
 /* Work page */
 .label { color: var(--quiet); font-size: 0.85rem; margin: 0; font-variant-numeric: tabular-nums; }
-h1 { font-size: 1.6rem; font-weight: 500; line-height: 1.25; margin: 0.4rem 0 0.3rem; }
+h1 { font-size: 1.6rem; font-weight: 500; line-height: 1.25; margin: 0 0 0.3rem; }
 .plate { margin: 2.5rem 0; background: var(--plate); }
 .plate img { display: block; width: 100%; height: auto; }
 .plate.empty { aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; }
 .plate.empty::after { content: "Image to come"; color: var(--quiet); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; }
-.piece { font-size: 1.15rem; white-space: pre-line; margin: 0 0 2.5rem; }
-.medium { color: var(--quiet); font-size: 0.9rem; margin: 0 0 2.5rem; }
-.note { border-top: 1px solid var(--rule); padding-top: 1.25rem; font-size: 0.9rem; color: var(--quiet); }
-.note h2 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 0.5rem; color: var(--ink); }
-.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 4rem; font-size: 0.9rem; }
-.pager span { color: var(--quiet); }
+.text { font-size: 1.05rem; line-height: 1.6; }
+.text p { margin: 0 0 1.1em; }
+.date { color: var(--quiet); font-size: 0.9rem; margin: 2.5rem 0 0; font-variant-numeric: tabular-nums; }
 footer { margin-top: 5rem; color: var(--quiet); font-size: 0.8rem; }
 .mast + .label { margin-bottom: 2rem; }
-.prompt { margin-top: 1.5rem; font-size: 0.85rem; color: var(--quiet); }
-.prompt summary { cursor: pointer; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
-.prompt p { margin: 0.6rem 0 0; }

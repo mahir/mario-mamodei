@@ -15,8 +15,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 ARTIST = "Mario Mamodei"
 TAGLINE = "A new work every twelve hours, at 9 am and 9 pm, New York time."
-REQUIRED = ["number", "slug", "title", "date", "form", "medium", "text", "note", "image_alt", "image_prompt"]
-PUBLIC = ["title", "form", "medium", "text", "note", "image_alt", "image_prompt"]
+REQUIRED = ["number", "slug", "title", "date", "form", "text", "image_alt"]
+PUBLIC = ["title", "text", "image_alt"]
+PRIVATE = ["image_prompt", "note", "medium"]  # never stored: prompts go to the user in chat
 DASHES = re.compile("[\u2013\u2014]")  # en and em dash
 SLUG = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 
@@ -32,6 +33,9 @@ def load():
         missing = [k for k in REQUIRED if not str(w.get(k, "")).strip()]
         if missing:
             fail(f"work {w.get('slug', '?')} is missing {', '.join(missing)}")
+        stray = [k for k in PRIVATE if k in w]
+        if stray:
+            fail(f"work {w['slug']} has {', '.join(stray)}; that does not belong in works.json")
         if not SLUG.match(w["slug"]):
             fail(f"bad slug {w['slug']!r}: use lowercase words joined by hyphens")
         for key, seen in (("slug", seen_slugs), ("number", seen_numbers)):
@@ -79,31 +83,24 @@ def page(title, body, root):
 """
 
 
-def work_page(w, prev, nxt):
+def paragraphs(text):
+    """Blank lines split paragraphs; single line breaks are kept."""
+    blocks = [b.strip() for b in text.strip().split("\n\n") if b.strip()]
+    return "\n".join("<p>" + "<br>\n".join(html.escape(l) for l in b.split("\n")) + "</p>" for b in blocks)
+
+
+def work_page(w):
     e = html.escape
-    pager = []
-    pager.append(f'<a href="{prev["slug"]}.html">&larr; {e(prev["title"])}</a>' if prev else "<span></span>")
-    pager.append(f'<a href="{nxt["slug"]}.html">{e(nxt["title"])} &rarr;</a>' if nxt else "<span></span>")
     body = f"""<article>
-<p class="label">No. {w['number']:03d} &middot; <time datetime="{w['date']}">{when(w['_dt'])}</time></p>
 <h1>{e(w['title'])}</h1>
-<p class="label">{e(w['form'])}</p>
 <figure class="plate">
 <img src="{w['slug']}.jpg" alt="{e(w['image_alt'])}" onerror="this.parentNode.classList.add('empty');this.remove()">
 </figure>
-<div class="piece">{e(w['text'].strip())}</div>
-<p class="medium">{e(w['medium'])}</p>
-<section class="note">
-<h2>Note</h2>
-<p>{e(w['note'])}</p>
-</section>
-<details class="prompt">
-<summary>Image prompt</summary>
-<p>{e(w['image_prompt'])}</p>
-</details>
-</article>
-<nav class="pager">{pager[0]}{pager[1]}</nav>
-<footer>{ARTIST}, No. {w['number']:03d}</footer>"""
+<div class="text">
+{paragraphs(w['text'])}
+</div>
+<p class="date"><time datetime="{w['date']}">{when(w['_dt'])}</time></p>
+</article>"""
     return page(f"{w['title']} | {ARTIST}", body, "../")
 
 
@@ -127,10 +124,8 @@ def main():
     works = load()
     out = ROOT / "works"
     out.mkdir(exist_ok=True)
-    for i, w in enumerate(works):
-        prev = works[i - 1] if i > 0 else None
-        nxt = works[i + 1] if i + 1 < len(works) else None
-        (out / f"{w['slug']}.html").write_text(work_page(w, prev, nxt), encoding="utf-8")
+    for w in works:
+        (out / f"{w['slug']}.html").write_text(work_page(w), encoding="utf-8")
     (ROOT / "index.html").write_text(index_page(works), encoding="utf-8")
     print(f"Built {len(works)} work page(s) and index.html")
 
