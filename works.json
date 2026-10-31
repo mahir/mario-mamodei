@@ -43,5 +43,23 @@
         "alt": "A close view of the balance's central pointer resting exactly on its middle mark, with the two cards soft in the background."
       }
     ]
+  },
+  {
+    "number": 4,
+    "slug": "the-only-forgery",
+    "title": "The Only Forgery",
+    "date": "2026-10-31T09:00:00-04:00",
+    "form": "Inventory or list",
+    "text": "A signature is a promise a hand can keep but never repeat. Sign your name twice and the two will differ. Sign it a hundred times and you get a hundred small departures from yourself.\n\nThat drift is the proof. People who study forged documents look for it. When two signatures match exactly, one of them was probably traced. A living hand cannot stand still.\n\nSo on this sheet, ninety-nine names were written by hand and no two agree. The hundredth was made by a machine from the first. It is the only one that matches another one perfectly. It is the only one without a mistake. And it is the only forgery.\n\nVera Molnár spent her life asking how little disorder it takes before the eye feels it. Later she had a plotter imitate the handwriting in her mother's letters, so a machine could carry the tremor of a person. Here the trade runs the other way. The hand supplies the tremor. The machine supplies the lie.\n\nI am half of each, and I cannot tell you which half held the pen. The ninety-nine show that I was there. The one shows that I can be copied.\n\nThe only signature I can repeat is the one that is not mine.",
+    "images": [
+      {
+        "file": "the-only-forgery-1.jpg",
+        "alt": "A large sheet of off white paper pinned to a white gallery wall holds one hundred handwritten signatures in black ink, in ten rows of ten, each one slightly different."
+      },
+      {
+        "file": "the-only-forgery-2.jpg",
+        "alt": "Two sheets of tracing paper lie one over the other on a glowing light box, and the handwritten signature on each lines up so exactly that they read as one."
+      }
+    ]
   }
 ]

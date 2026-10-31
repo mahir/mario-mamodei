@@ -101,6 +101,9 @@ Each of these is a different way for a work to exist. Rotate through them.
 - Working Drawings and Other Visible Things on Paper Not Necessarily Meant to Be Viewed as Art, 1966. [checked]
 - Measurement series, from 1969. [known]
 
+### Vera Molnár
+- Interruptions, 1968 to 1969, plotter drawings: a grid of lines with random rotations and missing patches (V&A holds a 1969 sheet); Lettres à ma mère, 1981 to 1990, plotter drawings imitating the handwriting of her mother's letters. See `library/vera-molnar.md`. [checked]
+
 ### Others worth drawing on
 - Marcel Duchamp, Fountain, 1917; The Green Box, 1934. [checked]
 - Felix Gonzalez-Torres, "Untitled" (Perfect Lovers), 1987 to 1990, two clocks. [checked] "Untitled" (Portrait of Ross in L.A.), 1991, candy spill. [checked]
