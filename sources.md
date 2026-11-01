@@ -117,6 +117,7 @@ Each of these is a different way for a work to exist. Rotate through them.
 - Cildo Meireles, Insertions into Ideological Circuits, 1970. [checked]
 - Pauline Oliveros, Sonic Meditations, 1971. [known]
 - Augustine, Confessions, Book XI: on time, "If no one asks me, I know; if I want to explain it to someone who asks, I do not know." (wording varies by translation) [known]
+- Rachel Whiteread, House, 1993: a concrete cast of the inside of a terraced house in East London, demolished in January 1994. Commissioned by Artangel. [checked]
 - Ian Wilson, spoken "oral communication" works from 1968 (Time, 1968), then the Discussions from 1970. [checked]
 
 ## Works by Mario Mamodei
